@@ -1,0 +1,7 @@
+python-dotenv
+httpx
+redis
+fastapi
+uvicorn
+python-jose[cryptography]
+requests
