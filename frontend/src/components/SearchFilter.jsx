@@ -16,7 +16,7 @@ const SearchFilter = ({ value, onChange, resultsCount, totalCount }) => {
           onChange={(e) => onChange(e.target.value)}
         />
 
-        {value && (
+        {/* {value && (
           <button
             type="button"
             onClick={() => onChange("")}
@@ -24,7 +24,7 @@ const SearchFilter = ({ value, onChange, resultsCount, totalCount }) => {
           >
             <IoClose className="text-lg" />
           </button>
-        )}
+        )} */}
       </label>
 
       {value && (

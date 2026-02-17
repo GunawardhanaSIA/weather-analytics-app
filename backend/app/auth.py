@@ -26,11 +26,9 @@ def get_rsa_key(token):
 
 def verify_jwt(credentials: HTTPAuthorizationCredentials = Security(http_bearer)):
     token = credentials.credentials
-    print("=== Incoming token ===")
-    print(token[:20] + "...")
+    print(f"Incoming token: {token}")
     rsa_key = get_rsa_key(token)
-    print("=== RSA Key obtained ===")
-    print(rsa_key)
+    print(f"RSA Key obtained: {rsa_key}")
 
     try:
         payload = jwt.decode(
@@ -41,8 +39,7 @@ def verify_jwt(credentials: HTTPAuthorizationCredentials = Security(http_bearer)
             options={"verify_aud": False},
             issuer=f"https://{AUTH0_DOMAIN}/"
         )
-        print("=== Decoded JWT payload ===")
-        print(payload)
+        print(f"Decoded JWT payload: {payload}")
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Token expired")

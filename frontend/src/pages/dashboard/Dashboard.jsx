@@ -62,6 +62,13 @@ const Dashboard = () => {
   }
 
 
+  const filteredData = weatherData
+  ? weatherData.filter(city =>
+      city.name && city.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  : [];
+
+
   return (
     <div>
       <div className='mx-auto px-4 py-4 bg-base-200'>
@@ -79,16 +86,16 @@ const Dashboard = () => {
               <Tooltip />
             </div>
             <SearchFilter
-                // value={searchQuery}
-                // onChange={setSearchQuery}
-                // resultsCount={filteredData.length}
-                // totalCount={weatherData.length}
+                value={searchQuery}
+                onChange={setSearchQuery}
+                resultsCount={filteredData.length}
+                totalCount={weatherData.length}
             />
           </div>
         </div>
 
         <div className='mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center'>
-          {weatherData.map((city, index) => (
+          {filteredData.map((city, index) => (
             <CityCard key={index} weather={city} rank={index+1} />
           ))}
         </div>

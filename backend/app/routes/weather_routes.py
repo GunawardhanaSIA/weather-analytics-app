@@ -6,5 +6,5 @@ router = APIRouter()
 
 @router.get("/")
 async def get_weather(payload: dict = Depends(verify_jwt)):
-    print("inside weather route")
+    print("Inside weather route")
     return await get_weather_data()

@@ -7,6 +7,7 @@ import { LuThermometer } from "react-icons/lu";
 import { LuWind } from "react-icons/lu";
 import { MdOutlineWaterDrop } from "react-icons/md";
 import { IoMdTrendingUp } from "react-icons/io";
+import Chart from './Chart';
 
 const getRankBadge = (rank) => {
     if (rank === 1) {
@@ -130,6 +131,18 @@ const CityCard = ({ weather, rank }) => {
                         <span className="text-base-content">Rank Position</span>
                         <h1 className='text-lg font-semibold text-blue-500'># {rank}</h1>
                     </div>
+                    <button className="btn btn-soft btn-primary" onClick={()=>document.getElementById('chart_modal').showModal()}>View Charts</button>
+                    <dialog id="chart_modal" className="modal">
+                        <div className="modal-box w-11/12 max-w-3xl">
+                            <h1 className='text-base-content text-lg font-semibold mb-6 flex flex-col items-center justify-center'>Temparature Trend of {weather.name}</h1>
+                            <div className=''><Chart/></div>
+                            <div className="modal-action">
+                            <form method="dialog">
+                                <button className="btn btn-error text-white">Close</button>
+                            </form>
+                            </div>
+                        </div>
+                    </dialog>
                 </div>
             </div>
         </div>
