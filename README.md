@@ -46,9 +46,9 @@ MFA is enabled using the **Authenticator App** as the primary factor, because Au
 
 The Comfort Index is calculated using three main weather variables:
 
-- **Temperature**  
-- **Humidity**  
-- **Wind Speed**
+- **Temperature** (Ideal: 22°C)
+- **Humidity** (Ideal: 50%)
+- **Wind Speed** (Ideal: 8 m/s)
 
 These were chosen because they have the **most significant effect on human comfort**.
 
