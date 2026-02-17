@@ -2,7 +2,7 @@ from fastapi import HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import jwt
 import requests
-from .config import AUTH0_DOMAIN, ALGORITHMS, AUTH0_API_AUDIENCE, HS256_SECRET
+from .config import AUTH0_DOMAIN, ALGORITHMS, AUTH0_API_AUDIENCE
 
 http_bearer = HTTPBearer()
 
