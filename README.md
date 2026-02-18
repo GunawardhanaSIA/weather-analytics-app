@@ -65,6 +65,8 @@ Each variable is converted into a score from 0 to 100, and the weighted sum give
 - Other factors like cloudiness, visibility, or pressure were ignored to keep the metric straightforward and easy to interpret.  
 - The weights are subjective, reflecting general human comfort preferences, but can be adjusted in future iterations.
 
+**Unit tests** for the Comfort Index function are located in the `backend/tests` directory.
+
 
 ## 3. Cache Design
 
