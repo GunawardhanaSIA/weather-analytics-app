@@ -26,8 +26,11 @@ dist-ssr/
 # =========================
 
 # Virtual environment
-venv/
-.venv/
+backend/Lib/
+backend/Scripts/
+backend/Include/
+backend/share/
+backend/pyvenv.cfg
 
 # Python cache
 __pycache__/
