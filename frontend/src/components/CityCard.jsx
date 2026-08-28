@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GoTrophy } from "react-icons/go";
 import { FiAward } from "react-icons/fi";
 import { IoMedalOutline } from "react-icons/io5";
@@ -63,6 +63,8 @@ const getComfortStyles = (score) => {
 
 
 const CityCard = ({ weather, rank }) => {
+    const [isChartOpen, setIsChartOpen] = useState(false);
+
     const rankBadge = getRankBadge(rank);
     const score = weather.comfort_score;
     const comfortStyles = getComfortStyles(score);
@@ -131,18 +133,20 @@ const CityCard = ({ weather, rank }) => {
                         <span className="text-base-content">Rank Position</span>
                         <h1 className='text-lg font-semibold text-blue-500'># {rank}</h1>
                     </div>
-                    <button className="btn btn-soft btn-primary" onClick={()=>document.getElementById('chart_modal').showModal()}>View Charts</button>
-                    <dialog id="chart_modal" className="modal">
-                        <div className="modal-box w-11/12 max-w-3xl">
-                            <h1 className='text-base-content text-lg font-semibold mb-6 flex flex-col items-center justify-center'>Temparature Trend of {weather.name}</h1>
-                            <div className=''><Chart/></div>
-                            <div className="modal-action">
-                            <form method="dialog">
-                                <button className="btn btn-error text-white">Close</button>
-                            </form>
+                    <button className="btn btn-soft btn-primary" onClick={() => setIsChartOpen(true)}>View Charts</button>
+                    {isChartOpen && (
+                        <dialog open id="chart_modal" className="modal" onClose={() => setIsChartOpen(false)}>
+                            <div className="modal-box w-11/12 max-w-3xl">
+                                <h1 className='text-base-content text-lg font-semibold mb-6 flex flex-col items-center justify-center'>Temparature Trend of {weather.name}</h1>
+                                <div className=''><Chart/></div>
+                                <div className="modal-action">
+                                <form method="dialog">
+                                    <button className="btn btn-error text-white" onClick={() => setIsChartOpen(false)}>Close</button>
+                                </form>
+                                </div>
                             </div>
-                        </div>
-                    </dialog>
+                        </dialog>
+                    )}
                 </div>
             </div>
         </div>
