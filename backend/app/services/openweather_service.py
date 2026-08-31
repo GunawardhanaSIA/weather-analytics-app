@@ -7,7 +7,7 @@ from ..cache.cache_manager import get_cache, set_cache
 logger = logging.getLogger(__name__)
 
 
-async def fetch_weather_from_openweather(city_code):
+async def fetch_weather_from_openweather(city_code, client):
     url = f"{OPENWEATHER_BASE_URL}/weather"
 
     params = {
@@ -26,12 +26,11 @@ async def fetch_weather_from_openweather(city_code):
     logger.info("[RAW CACHE MISS] City: %s. Calling API...", city_code)
 
     try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(url, params=params)
-            response.raise_for_status()
-            weather_data = response.json()
-            await set_cache(raw_cache_key, weather_data, ttl=300)
-            return weather_data
+        response = await client.get(url, params=params)
+        response.raise_for_status()
+        weather_data = response.json()
+        await set_cache(raw_cache_key, weather_data, ttl=300)
+        return weather_data
     except httpx.HTTPStatusError as status_error:
         logger.error("API error for city %s: %s", city_code, status_error)
         return None
