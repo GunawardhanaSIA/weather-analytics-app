@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from .city_service import get_city_codes
+from ..utils.city_loader import get_city_codes
 from .api_call_service import fetch_weather_from_openweather
 from .comfort_index_service import calculate_comfort_index
 from ..cache.cache_manager import get_cache, set_cache
