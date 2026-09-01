@@ -8,6 +8,7 @@ import { LuWind } from "react-icons/lu";
 import { MdOutlineWaterDrop } from "react-icons/md";
 import { IoMdTrendingUp } from "react-icons/io";
 import Chart from './Chart';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const getRankBadge = (rank) => {
     if (rank === 1) {
@@ -64,10 +65,44 @@ const getComfortStyles = (score) => {
 
 const CityCard = ({ weather, rank }) => {
     const [isChartOpen, setIsChartOpen] = useState(false);
+    const [forecastData, setForecastData] = useState(null);
+    const [loadingForecast, setLoadingForecast] = useState(false);
+
+    const { getAccessTokenSilently, isAuthenticated, getIdTokenClaims } = useAuth0();
 
     const rankBadge = getRankBadge(rank);
     const score = weather.comfort_score;
     const comfortStyles = getComfortStyles(score);
+
+    const handleViewCharts = async () => {
+        try {
+            setLoadingForecast(true);
+
+            const claims = await getIdTokenClaims();
+            const idToken = claims.__raw;
+
+            const response = await fetch(`http://127.0.0.1:8000/weather/forecast?city_code=${weather.id}`, {
+                headers: {
+                    Authorization: `Bearer ${idToken}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch forecast data");
+            }
+
+            const data = await response.json();
+
+            console.log("Forecast data:", data);
+
+            setForecastData(data);
+            setIsChartOpen(true);
+        } catch (error) {
+            console.error("Error fetching forecast:", error);
+        } finally {
+            setLoadingForecast(false);
+        }
+    };
 
     return (
         <div>
@@ -133,7 +168,9 @@ const CityCard = ({ weather, rank }) => {
                         <span className="text-base-content">Rank Position</span>
                         <h1 className='text-lg font-semibold text-blue-500'># {rank}</h1>
                     </div>
-                    <button className="btn btn-soft btn-primary" onClick={() => setIsChartOpen(true)}>View Charts</button>
+                    <button className="btn btn-soft btn-primary" onClick={handleViewCharts} disabled={loadingForecast}>
+                        {loadingForecast ? "Loading..." : "View Charts"}
+                    </button>
                     {isChartOpen && (
                         <dialog open id="chart_modal" className="modal" onClose={() => setIsChartOpen(false)}>
                             <div className="modal-box w-11/12 max-w-3xl">
