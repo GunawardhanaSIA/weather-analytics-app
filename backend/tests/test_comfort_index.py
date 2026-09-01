@@ -1,5 +1,5 @@
 import pytest
-from app.services.comfort_index_service import calculate_comfort_index
+from app.services.comfort_score_service import calculate_comfort_index
 
 
 def test_perfect_comfort_conditions():

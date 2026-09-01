@@ -4,7 +4,7 @@ import httpx
 
 from ..utils.city_loader import get_city_codes
 from .openweather_service import fetch_weather_from_openweather
-from .comfort_index_service import calculate_comfort_index
+from .comfort_score_service import calculate_comfort_score
 from ..cache.cache_manager import get_cache, set_cache
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ async def process_city_weather(city_code, client):
 
     processed_weather = {
         **weather_data,
-        "comfort_score": calculate_comfort_index(weather_data)
+        "comfort_score": calculate_comfort_score(weather_data)
     }
 
     await set_cache(processed_cache_key, processed_weather, ttl=300)
