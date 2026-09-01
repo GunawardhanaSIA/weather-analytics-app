@@ -1,17 +1,17 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
-const data = [
-  { day: '17/02', temperature: 25 },
-  { day: '17/02', temperature: 27 },
-  { day: '17/02', temperature: 24 },
-  { day: '17/02', temperature: 26 },
-  { day: '17/02', temperature: 28 },
-  { day: '17/02', temperature: 27 },
-  { day: '17/02', temperature: 25 },
-];
 
-const Chart = () => {
+const Chart = ({ forecastData }) => {
+  if (!forecastData || !forecastData.list) {
+    return <p>No forecast data available.</p>;
+  }
+
+  const data = forecastData.list.map((item) => ({
+      datetime: item.dt_txt,
+      temperature: item.main.temp,
+  }));
+
+
   return (
     <div className="overflow-x-auto">
       <LineChart
@@ -26,7 +26,7 @@ const Chart = () => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="day" label={{ value: 'Day of Week', position: 'insideBottom', offset: -5 }} />
+        <XAxis dataKey="datetime" label={{ value: 'Date & Time', position: 'insideBottom', offset: -10 }} />
         <YAxis label={{ value: 'Temperature (°C)', angle: -90, position: 'insideLeft' }} />
         <Tooltip />
         <Line type="monotone" dataKey="temperature" stroke="#8884d8" activeDot={{ r: 8 }} />
