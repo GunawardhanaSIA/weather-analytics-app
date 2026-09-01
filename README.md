@@ -97,5 +97,4 @@ This design ensures that weather data is **quickly available** while still being
 The following are the current limitations of the project, planned for improvement in future updates:
 
 - The current implementation uses the OpenWeather `weather` endpoint to fetch only the current weather for each city.
-- To display data for charts, such as a 7-day temperature forecast, the API call should be switched to the `onecall` endpoint.
-- As a result, chart data is currently a placeholder, and historical or future forecasts are not available until this change is made.
+- The `5-day weather forecast API` provides several weather variables, including temperature, humidity, and wind data. Due to time constraints, only the **temperature forecast chart** has been implemented at this stage.
